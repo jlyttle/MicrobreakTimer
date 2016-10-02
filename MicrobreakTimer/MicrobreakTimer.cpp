@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
@@ -19,32 +20,32 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	int messageBoxAlarm = IDOK;
 	
 	//int sleepTime = DialogBox(NULL, MAKEINTRESOURCE(ID_PASSWORD), NULL, DlgProc);
-	//ifstream friendFile("messages.txt");
-	//friendFile.open;
-	//string lines;
-	//int numberOfLines = 0;
-
-	//while (getline(friendFile, lines))
+	ifstream friendFile;
+	friendFile.open ("messages.txt");
+	
+	//if (friendFile.is_open())
 	//{
-		//++numberOfLines;
+		//cout << "File is open";
 	//}
 
-	//int chosenLineNumber = rand() % numberOfLines;
+	string lines = "";
+	int numberOfLines = 0;
 
-	//for (int i = 0; i < chosenLineNumber; ++i)
-		//getline(friendFile, lines);
-	//getline(friendFile, lines);
+	std::vector<std::wstring> messages;
 
-	LPCWSTR messages[] = { L"You look really beautiful today. Why not give yourself a standing ovation?",
-						   L"Remember to take a break and stretch.",
-						   L"Your floor is feeling really lonely right now. Why not go visit the rest of it?",
-						   L"Sometimes it helps to clear your head by taking a short walk. Why not right now?" };
+	while (getline(friendFile, lines))
+	{
+		wstring wideLine = wstring(lines.begin(), lines.end());
+		LPCWSTR line = wideLine.c_str();
+		messages.push_back(line);
+		numberOfLines++;
+	}
 
 	while (messageBoxAlarm == IDOK)
 	{
 		Sleep(1000);
-		int chosenLineNumber = rand() % 4;
-		LPCWSTR chosenLine = messages[chosenLineNumber];
+		int chosenLineNumber = rand() % numberOfLines;
+		LPCWSTR chosenLine = messages[chosenLineNumber].c_str();
 		messageBoxAlarm = MessageBox(NULL, chosenLine, L"Microbreak Timer", MB_SETFOREGROUND | MB_ICONINFORMATION | MB_DEFBUTTON2 | MB_OKCANCEL);
 	}
 	return 0;
