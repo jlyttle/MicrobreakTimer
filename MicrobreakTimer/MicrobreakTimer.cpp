@@ -23,30 +23,33 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	ifstream friendFile;
 	friendFile.open ("messages.txt");
 	
-	//if (friendFile.is_open())
-	//{
-		//cout << "File is open";
-	//}
-
-	string lines = "";
-	int numberOfLines = 0;
-
-	std::vector<std::wstring> messages;
-
-	while (getline(friendFile, lines))
+	if (friendFile.fail())
 	{
-		wstring wideLine = wstring(lines.begin(), lines.end());
-		LPCWSTR line = wideLine.c_str();
-		messages.push_back(line);
-		numberOfLines++;
+		MessageBox(NULL, L"Could not find file \"messages.txt\"", L"Error", MB_SETFOREGROUND | MB_ICONERROR | MB_DEFBUTTON2 | MB_OK);
+	}
+	else
+	{
+		string lines = "";
+		int numberOfLines = 0;
+
+		std::vector<std::wstring> messages;
+
+		while (getline(friendFile, lines))
+		{
+			wstring wideLine = wstring(lines.begin(), lines.end());
+			LPCWSTR line = wideLine.c_str();
+			messages.push_back(line);
+			numberOfLines++;
+		}
+
+		while (messageBoxAlarm == IDOK)
+		{
+			Sleep(1000);
+			int chosenLineNumber = rand() % numberOfLines;
+			LPCWSTR chosenLine = messages[chosenLineNumber].c_str();
+			messageBoxAlarm = MessageBox(NULL, chosenLine, L"Microbreak Timer", MB_SETFOREGROUND | MB_ICONINFORMATION | MB_DEFBUTTON2 | MB_OKCANCEL);
+		}
 	}
 
-	while (messageBoxAlarm == IDOK)
-	{
-		Sleep(1000);
-		int chosenLineNumber = rand() % numberOfLines;
-		LPCWSTR chosenLine = messages[chosenLineNumber].c_str();
-		messageBoxAlarm = MessageBox(NULL, chosenLine, L"Microbreak Timer", MB_SETFOREGROUND | MB_ICONINFORMATION | MB_DEFBUTTON2 | MB_OKCANCEL);
-	}
 	return 0;
 }
