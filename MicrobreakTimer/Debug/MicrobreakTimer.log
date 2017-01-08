@@ -1,3 +1,4 @@
 ﻿  MicrobreakTimer.cpp
-  MicrobreakTimer.vcxproj -> C:\Users\Jonathan\Documents\MicroBreakTimer\Debug\MicrobreakTimer.exe
-  MicrobreakTimer.vcxproj -> C:\Users\Jonathan\Documents\MicroBreakTimer\Debug\MicrobreakTimer.pdb (Full PDB)
+c:\users\anthony cloudy\documents\github\q\microbreaktimer\microbreaktimer\microbreaktimer.cpp(40): warning C4065: switch statement contains 'default' but no 'case' labels
+  MicrobreakTimer.vcxproj -> C:\Users\Anthony Cloudy\Documents\GitHub\Q\MicrobreakTimer\Debug\MicrobreakTimer.exe
+  MicrobreakTimer.vcxproj -> C:\Users\Anthony Cloudy\Documents\GitHub\Q\MicrobreakTimer\Debug\MicrobreakTimer.pdb (Full PDB)
